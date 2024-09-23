@@ -71,8 +71,10 @@ fulldata, optdata, multidata = out_arrays(ni,header,opt_head,
                                           main_params['out']['tdtOptData'])
 
 # Get key!!!
-SKL_main_loop(main_params,adv_params,x,x0i,xb,ci,ni,f_atm,bounds,cons,
+skl = SKL_main_loop(main_params,adv_params,x,x0i,xb,ci,ni,f_atm,bounds,cons,
               options,header,opt_head,fulldata,optdata,multidata)
+
+print(skl)
 
 ###############################################################################
 

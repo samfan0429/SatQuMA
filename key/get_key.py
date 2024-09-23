@@ -431,7 +431,7 @@ def SKL_opt_loop_loss_and_time(count,ci,ni,theta_max,Pec,QBERI,ls_range,
             ci[4] += 1 # dt loop counter
         ci[3] += 1 # ls loop counter
 
-    return fulldata, optdata, x0i, count
+        return fulldata, optdata, x0i, count, SKLdata
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -584,6 +584,7 @@ def SKL_sys_loop(count,ci,ni,x,x0i,xb,theta_max,dt_range,main_params,opt_params,
     ls_range  = main_params['iter']['ls']       # Start, stop and step values for the excess loss loop
     
     ci[1] = 0  
+
     for Pec in main_params['iter']['Pec']:
         ci[2] = 0
         for QBERI in main_params['iter']['QBERI']:
@@ -597,7 +598,7 @@ def SKL_sys_loop(count,ci,ni,x,x0i,xb,theta_max,dt_range,main_params,opt_params,
 
             if tOptimise:
                 # Find the optimised SKL and protocol parameters
-                fulldata, optdata, x0i, count = \
+                fulldata, optdata, x0i, count, skl = \
                     SKL_opt_loop_loss_and_time(count,ci,ni,theta_max,Pec,
                                                QBERI,ls_range,dt_range,tInit,x,
                                                x0i,mu3,xb,args_fixed,bounds,
@@ -637,7 +638,7 @@ def SKL_sys_loop(count,ci,ni,x,x0i,xb,theta_max,dt_range,main_params,opt_params,
             
             ci[2] += 1 # QBERI loop counter
         ci[1] += 1 # Pec loop counter
-    return multidata, count
+        return multidata, count, skl
     
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -832,7 +833,7 @@ def SKL_main_loop(main_params,adv_params,x,x0i,xb,ci,ni,f_atm,bounds,cons,
                                      FSeff,time0pos)
         
         # Run main SKL loops
-        multidata, count = \
+        multidata, count, skl = \
             SKL_sys_loop(count,ci,ni,x,x0i,xb,theta_max,dt_range,main_params,
                          adv_params['opt'],args_fixed,bounds,cons,options,
                          header,opt_head,fulldata,optdata,multidata,
@@ -845,3 +846,4 @@ def SKL_main_loop(main_params,adv_params,x,x0i,xb,ci,ni,f_atm,bounds,cons,
         writeMultiData(main_params['out'],header,multidata)
         if main_params['out']['tPrint']:
             print('-'*80)
+    return skl

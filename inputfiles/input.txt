@@ -38,8 +38,8 @@ True  # tOptimise
 #******************************************************************************
 # Define listed parameters: theta_max(xi), Pec and QBERI
 #******************************************************************************
-90.0, 80.0 # theta_max = Max elevation of satellite orbit wrt receiver (deg)
-1e-8, 1e-7 # Pec       = Dark count probability [0:1]
+90.0 # theta_max = Max elevation of satellite orbit wrt receiver (deg)
+5e-7 # Pec       = Dark count probability [0:1]
 0.001      # QBERI   = Intrinsic quantum bit error rate (QBER_I)
 
 #******************************************************************************
@@ -49,11 +49,11 @@ True  # tOptimise
 # dt = Index for windowing time-slot arrays, e.g. A(t)[t0-dt:t0+dt]
 # In FS_loss_XI0.csv, 0 <= dt <= 346
 #******************************************************************************
-200, 350, 10 # dt_range = Start, stop, step index
+300, 300, 1 # dt_range = Start, stop, step index
 #******************************************************************************
 # ls = Excess system loss(es) in dB
 #******************************************************************************
-0, 12, 7   # ls_range = Start, stop, No. of steps
+20, 20, 1   # ls_range = Start, stop, No. of steps
 
 #******************************************************************************
 # Loss options
@@ -66,12 +66,12 @@ False  # tReadLoss = Read losses from a file?
 True     # tWriteLoss = Write losses to a file?
 ''       # atmfile = Name of atmospheric data file ('' = use default data)
 15       # eta_int = Intrinsic system loss
-500e3    # hsat = Satellite altitude in m
+567e3    # hsat = Satellite altitude in m
 0e3      # hOGS = Receiver altitude in m
 0.15     # aT = Transmitter aperture radii (m)
-0.6      # aR = Receiver aperture radii (m)
+0.5      # aR = Receiver aperture radii (m)
 0.15     # w0 = Beam waist at focus (m)
-810      # wl = Wavelength (nm)
+785      # wl = Wavelength (nm)
 6371e3   # R_E = Radius of the Earth (m)
 
 #******************************************************************************
